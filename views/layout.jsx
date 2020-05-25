@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Jumbotron } from 'watson-react-components';
+import { Header, Footer } from 'watson-react-components';
+import { Navbar, Jumbotron, Button, Container } from 'react-bootstrap';
 
 // eslint-disable-next-line
-const DESCRIPTION = 'Natural Language Classifier applies deep learning techniques to make predictions about the best predefined classes for short sentences or phrases.';
+const DESCRIPTION = 'El clasificador de lenguaje natural aplica tecnicas de aprendizaje profundo para realizar predicciones acerca de las mejores clases predefinidas para frases u oraciones.';
 const TERMS_OF_USE_URL = 'https://watson-developer-cloud.github.io/terms?name=Natural%20Language%20Classifier%20Demo';
+
+
 
 export class Layout extends React.Component {
   constructor(props) {
@@ -27,45 +30,58 @@ export class Layout extends React.Component {
       <html lang="en">
         <head>
           <title>
-            Natural Language Classifier Demo
+            Clasificador de lenguaje natural
           </title>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="og:title" content="Natural Language Classifier Demo" />
           <meta name="og:description" content={DESCRIPTION} />
+          
           <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
           <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
           <link rel="stylesheet" href="/css/watson-react-components.min.css" />
           <link rel="stylesheet" href="/css/style.css" />
+          
+          <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+          />
         </head>
         <body>
-          {showHeader ? <Header
-            mainBreadcrumbs="Natural Language Classifier"
-            mainBreadcrumbsUrl="https://www.ibm.com/watson/services/natural-language-classifier/"
-          /> : null }
-          { showHeader ?
-          <Jumbotron
-            serviceName="Natural Language Classifier"
-            repository="https://github.com/watson-developer-cloud/natural-language-classifier-nodejs"
-            documentation="https://cloud.ibm.com/docs/services/natural-language-classifier/getting-started.html"
-            apiReference="https://cloud.ibm.com/apidocs/natural-language-classifier?language=node"
-            version="GA"
-            serviceIcon="/images/service-icon.png"
-            startInBluemix="https://cloud.ibm.com/registration/?target=%2Fcatalog%2Fservices%2Fnatural-language-classifier%3FhideTours%3Dtrue%26cm_mmc%3D-_-Watson%2BCore_Watson%2BCore%2B-%2BPlatform-_-WW_WW-_-wdc-ref%26cm_mmc%3D-_-Watson%2BCore_Watson%2BCore%2B-%2BPlatform-_-WW_WW-_-wdc-ref%26cm_mmca1%3D000000OF%26cm_mmca2%3D10000409"
-            description={DESCRIPTION}
-          /> : null }
-          <div className="_container _container_large gdpr-info">
-            By using this application, you agree to the &nbsp;
-            <a target="_blank" rel="noreferrer noopener" href={TERMS_OF_USE_URL}>
-                  Terms of Use
-            </a>
-          </div>
+          <Navbar className='color-nav' variant="dark">
+            <Navbar.Brand href="">
+
+              <img
+                alt=""
+                src="images/image.png"
+                width="32"
+                height="32"
+                className="d-inline-block align-top"
+              />{' '}
+              Clasificador de lenguaje natural
+            </Navbar.Brand>
+          </Navbar>
+            <Jumbotron>
+              <Container>
+                <h1>Clasificador de lenguaje natural</h1>
+                <p>
+                  {DESCRIPTION}
+                </p>
+              </Container>
+            </Jumbotron>
           <div id="root">
             {children}
           </div>
+          {/*}
+          <div>
+            <Footer style={{backgroundColor: '#eb6e60'}}/>
+          </div>
+          */}
           <script type="text/javascript" src="js/bundle.js" />
           <script type="text/javascript" src="https://cdn.rawgit.com/watson-developer-cloud/watson-developer-cloud.github.io/master/analytics.js" />
         </body>

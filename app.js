@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
+
 const express = require('express');
+var multer  = require('multer')
+//var upload = multer({ dest: 'tmp/' })
+const axios = require('axios');
+var formidable = require('formidable');
+const fs = require('fs');
+const multiparty = require("multiparty");
+const request = require('request');
 
 const app = express();
 const NaturalLanguageClassifierV1 = require('ibm-watson/natural-language-classifier/v1');
@@ -24,6 +32,8 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 require('./config/express')(app);
 
 // Create the service wrapper
+
+const url = process.env.NODE_RED_URL;
 
 const classifier = new NaturalLanguageClassifierV1({
   version: '2018-04-05',
@@ -53,6 +63,46 @@ app.post('/api/classify', (req, res, next) => {
     return res.json(data.result);
   });
 });
+
+app.post('/api/classify_many', (req, res) => {
+  let form = new multiparty.Form();
+
+  form.parse(req, function(err, fields, files) {
+    console.log(err)
+    console.log(fields)
+    console.log(files)
+  });
+  form.on('file', function(name, file) {
+      var formData = {
+          file: {
+              value: fs.createReadStream(file.path),
+              options: {
+                  filename: file.originalFilename
+              }
+          }
+      };
+      request.post({
+        url: url+'/classify_csv',
+        formData: formData
+      }, function optionalCallback(err, httpResponse, body) {
+        return res.json(body);
+    });     
+    });
+  });
+
+  /*
+  form.parse(req, function(err, fields, files) {
+    console.log(files.file[0].path);
+      let formData = {
+          file: {
+              value: fs.createReadStream(files.file[0].path),
+              options: {
+                  filename: files.file[0].originalFilename
+              }
+          }
+      }
+      */
+
 
 // error-handler settings
 require('./config/error-handler')(app);

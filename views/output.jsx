@@ -1,36 +1,30 @@
 import React from 'react';
 import {
-  Icon,
-  Tabs,
-  Pane,
-  Code,
+  Icon
 } from 'watson-react-components';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import { Navbar, Jumbotron, Button, Container } from 'react-bootstrap';
+
 
 export default function (prop) {
   return (
-    <div className="output-container">
-      {(prop.data || prop.error) ? <h2 className="base--h2">Output</h2> : null}
+    <Container>
+      {(prop.data || prop.error) ? 
+      <h2>Resultado</h2> : null}
       {prop.data
         ? (
-          <Tabs selected={0}>
-            <Pane label="Results">
               <p>
-                Natural Language Classifier is&nbsp;
-                <code className="base--code">
-                  {Math.floor(prop.data.classes[0].confidence * 100)}
-                %
-                </code>
-                &nbsp;confident that the question submitted is talking about&nbsp;
-                <code className="base--code">{prop.data.top_class}</code>
-                .
-              </p>
-            </Pane>
-            <Pane label="JSON">
-              <Code language="json">
-                {JSON.stringify(prop.data, null, 2)}
-              </Code>
-            </Pane>
-          </Tabs>
+                  El clasificador de lenguaje natural esta<b>&nbsp;
+                  
+                    {Math.floor(prop.data.classes[0].confidence * 100)}
+                  %</b>
+                  
+                  &nbsp;seguro de que se esta hablando de<b>&nbsp;
+                  {prop.data.top_class}
+                  </b>.
+                </p>
+
         ) : null
       }
       {prop.error
@@ -41,6 +35,8 @@ export default function (prop) {
           </div>
         ) : (null)
       }
-    </div>
+      
+    </Container>       
   );
 }
+
